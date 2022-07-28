@@ -1,63 +1,82 @@
+*, *::before, *::after{
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+:root {
+    --hue-neutral: 200;
+    --hue-wrong: 0;
+    --hue-correct: 145;
+}
+
 body {
-    background-color: #413D3D;
+    --hue: var(--hue-neutral); 
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    background-color: hsl(var(--hue), 100%, 20%);
 }
- 
-.grid {
-    width: 600px;
-    height: 500px;
-    margin: 0 auto;
-    background-color: #fff;
-    padding: 10px 50px 50px 50px;
-    border: 2px solid #cbcbcb;
-    
+
+body.correct {
+    --hue: var(--hue-correct);
 }
- 
-.grid h1 {
-    font-family: "sans-serif";
-    background-color: #01BBFF;
-    font-size: 60px;
-    text-align: center;
-    color: #ffffff;
-    padding: 2px 0px;
-    
+body.wrong {
+    --hue: var(--hue-wrong);
 }
- 
-#score {
-    color: #01BBFF;
-    text-align: center;
-    font-size: 30px;
+
+.container {
+    width: 800px;
+    max-width: 80%;
+    background-color: white;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 0 10px 2px;
 }
- 
-.grid #question {
-    font-family: "monospace";
-    font-size: 30px;
-    color: #01BBFF;
+
+.btn-grid {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    gap: 10px;
+    margin: 20px 0;
 }
- 
-.buttons {
-    margin-top: 30px;
+
+.btn {
+    --hue: var(--hue-neutral);
+    background-color: hsl(var(--hue), 100%, 50%);
+    border: 1px solid hsl(var(--hue), 100%, 30%);
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: white;
+    outline: none;
 }
- 
-#btn0, #btn1, #btn2, #btn3 {
-    background-color: #01BBFF;
-    width: 250px;
-    font-size: 20px;
-    color: #fff;
-    border: 1px solid #1D3C6A;
-    margin: 10px 40px 10px 0px;
-    padding: 10px 10px;
+
+.btn:hover {
+    border-color: black;
 }
- 
-#btn0:hover, #btn1:hover, #btn2:hover, #btn3:hover {
-    cursor: pointer;
-    background-color: #01BBFF;
+
+.btn.correct {
+    --hue: var(--hue-correct);
+    color: black;
 }
- 
-#btn0:focus, #btn1:focus, #btn2:focus, #btn3:focus {
-    outline: 0;
+
+.btn-wrong {
+    --hue: var(--hue-wrong);
 }
- 
-#progress {
-    color: #2b2b2b;
-    font-size: 18px;
+
+.start-btn, .next-btn {
+    font-size: 1.5ren;
+    font-weight: bold;
+    padding: 10px 20px;
+}
+.controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hide {
+    display: none;
 }
