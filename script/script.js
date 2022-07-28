@@ -3,9 +3,18 @@ var nextButton = document.getElementById('next-btn')
 var questionContainerEl = document.getElementById('question-container')
 var questionElement = document.getElementById('question')
 var answerButtonsEl = document.getElementById('answer-btn')
+var count = 3
 let  shuffledQuestions, currentQuestionIndex
 
-
+var interval = setInterval(function(){
+    document.getElementById('count').innerHTML=count
+    count--
+    if (count === 0) {
+        clearInterval(interval)
+        document.getElementById('count').innerText='Time is up!'
+    }
+},
+1000)
 
 
 startButton.addEventListener('click', startGame)
