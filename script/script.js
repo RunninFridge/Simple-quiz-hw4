@@ -9,13 +9,16 @@ var option_list = document.querySelector(".option_list");
 var time_line = document.querySelector("header .time_line");
 var timeText = document.querySelector(".timer .time_left_txt");
 var timeCount = document.querySelector(".timer .timer_sec");
+var welcome = document.querySelector(".welcome");
 
 start_btn.onclick = ()=>{
     info_box.classList.add("activeInfo"); //show info box
+    welcome.style.display = "none";
 }
 
 exit_btn.onclick = ()=>{
     info_box.classList.remove("activeInfo"); //hide info box/return to front page
+    welcome.style.display = "flex";
 }
 
 // if continueQuiz button clicked, starting questions and start the timer as well.
@@ -24,11 +27,11 @@ continue_btn.onclick = ()=>{
     quiz_box.classList.add("activeQuiz");
     showQuetions(0); 
     queCounter(1); 
-    startTimer(30); 
+    startTimer(15); 
     startTimerLine(0);
 }
 
-let timeValue =  30;
+let timeValue =  15;
 let que_count = 0;
 let que_numb = 1;
 let userScore = 0;
@@ -43,7 +46,7 @@ var quit_quiz = result_box.querySelector(".buttons .quit");
 restart_quiz.onclick = ()=>{
     quiz_box.classList.add("activeQuiz"); 
     result_box.classList.remove("activeResult"); 
-    timeValue = 30; 
+    timeValue = 15; 
     que_count = 0;
     que_numb = 1;
     userScore = 0;
@@ -82,7 +85,7 @@ next_btn.onclick = ()=>{
     }else{
         clearInterval(counter); 
         clearInterval(counterLine);
-        showResult(); //calling showResult function
+        showResult(); //making the showResult function 
     }
 }
 
@@ -90,12 +93,13 @@ next_btn.onclick = ()=>{
 function showQuetions(index){
     var que_text = document.querySelector(".que_text");
 
-    //creating a new span and div tag for question and option and passing the value using array index
+    //creating a new span and div tag for question and option and passing the value using array index - had to look this up
     let que_tag = '<span>'+ questions[index].numb + ". " + questions[index].question +'</span>';
     let option_tag = '<div class="option"><span>'+ questions[index].options[0] +'</span></div>'
     + '<div class="option"><span>'+ questions[index].options[1] +'</span></div>'
     + '<div class="option"><span>'+ questions[index].options[2] +'</span></div>'
     + '<div class="option"><span>'+ questions[index].options[3] +'</span></div>';
+    //had to look this up
     que_text.innerHTML = que_tag; //adding new span tag inside que_tag
     option_list.innerHTML = option_tag; //adding new div tag inside option_tag
     
@@ -112,8 +116,8 @@ let crossIconTag = '<div class="icon cross"><i class="fas fa-times"></i></div>';
 
 //if user clicked on option
 function optionSelected(answer){
-    clearInterval(counter); //clear counter
-    clearInterval(counterLine); //clear counterLine
+    clearInterval(counter);
+    clearInterval(counterLine); 
     let userAns = answer.textContent; //getting user selected option
     let correcAns = questions[que_count].answer; //getting correct answer from array
     var allOptions = option_list.children.length; //getting all option items
@@ -125,8 +129,8 @@ function optionSelected(answer){
         console.log("Correct Answer");
         console.log("Your correct answers = " + userScore);
     }else{
-        answer.classList.add("incorrect"); //adding red color to correct selected option
-        answer.insertAdjacentHTML("beforeend", crossIconTag); //adding cross icon to correct selected option
+        answer.classList.add("incorrect"); //adding red color to wrong selected option
+        answer.insertAdjacentHTML("beforeend", crossIconTag); 
         console.log("Wrong Answer");
 
         for(i=0; i < allOptions; i++){
@@ -142,10 +146,10 @@ function optionSelected(answer){
     }
     next_btn.classList.add("show"); //show the next button if user selected any option
 }
-
+// responses on the correct ammount of answers from user
 function showResult(){
-    info_box.classList.remove("activeInfo"); //hide info box
-    quiz_box.classList.remove("activeQuiz"); //hide quiz box
+    info_box.classList.remove("activeInfo");
+    quiz_box.classList.remove("activeQuiz");
     result_box.classList.add("activeResult"); //show result box
     var scoreText = result_box.querySelector(".score_text");
     if (userScore > 3){ // if user scored more than 3
@@ -168,12 +172,8 @@ function startTimer(time){
     function timer(){
         timeCount.textContent = time; //changing the value of timeCount with time value
         time--; //decrement the time value
-        if(time < 9){ //if timer is less than 9
-            let addZero = timeCount.textContent; 
-            timeCount.textContent = "0" + addZero; //add a 0 before time value
-        }
         if(time < 0){ //if timer is less than 0
-            clearInterval(counter); //clear counter
+            clearInterval(counter);
             timeText.textContent = "Time Off"; //change the time text to time off
             var allOptions = option_list.children.length; //getting all option items
             let correcAns = questions[que_count].answer; //getting correct answer from array
@@ -185,20 +185,9 @@ function startTimer(time){
                 }
             }
             for(i=0; i < allOptions; i++){
-                option_list.children[i].classList.add("disabled"); //once user select an option then disabled all options
+                option_list.children[i].classList.add("disabled"); 
             }
             next_btn.classList.add("show"); //show the next button if user selected any option
-        }
-    }
-}
-
-function startTimerLine(time){
-    counterLine = setInterval(timer, 29);
-    function timer(){
-        time += 1; //upgrading time value with 1
-        time_line.style.width = time + "px"; //increasing width of time_line with px by time value
-        if(time > 549){ //if time value is greater than 549
-            clearInterval(counterLine); //clear counterLine
         }
     }
 }
@@ -265,18 +254,4 @@ let questions = [
       "eXamine Multiple Language"
     ]
   },
-  // you can uncomment the below codes and make duplicate as more as you want to add question
-  // but remember you need to give the numb value serialize like 1,2,3,5,6,7,8,9.....
-
-  //   {
-  //   numb: 6,
-  //   question: "Your Question is Here",
-  //   answer: "Correct answer of the question is here",
-  //   options: [
-  //     "Option 1",
-  //     "option 2",
-  //     "option 3",
-  //     "option 4"
-  //   ]
-  // },
 ];
