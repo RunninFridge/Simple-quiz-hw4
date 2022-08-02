@@ -1,4 +1,4 @@
-// getting all the elements in order
+// getting all the elements
 var start_btn = document.querySelector(".start_btn button");
 var info_box = document.querySelector(".info_box");
 var exit_btn = info_box.querySelector(".buttons .quit");
@@ -10,6 +10,8 @@ var time_line = document.querySelector("header .time_line");
 var timeText = document.querySelector(".timer .time_left_txt");
 var timeCount = document.querySelector(".timer .timer_sec");
 var welcome = document.querySelector(".welcome");
+var Username = document.getElementById("Uname")
+var submit = document.getElementById("submit")
 
 start_btn.onclick = ()=>{
     info_box.classList.add("activeInfo"); //show info box
@@ -140,6 +142,7 @@ function optionSelected(answer){
                 console.log("Auto selected correct answer.");
             }
         }
+
     }
     for(i=0; i < allOptions; i++){
         option_list.children[i].classList.add("disabled"); //once user select an option then disabled all options
